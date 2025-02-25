@@ -41,6 +41,13 @@
         {% endfor %}
     </ol>
     <hr>
+<hr>
+<h4>entrar no jogo:</h4>
+<form action="{{url_for('games')}}" method="POST">
+    <label>Jogador:</label>
+    <input type="text" name="jogador">
+    <input type="submit" value="Entrar">
+</form>
 
     <ul>
         {% for jogo in jogos %}

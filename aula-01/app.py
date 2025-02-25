@@ -13,12 +13,16 @@ def home():
 
 @app.route ('/games')
 def games ():
-    titulo = 'CS-GO'
-    ano = 2012
-    categoria = 'FPS Online'
+    #Dicionario em Python
+    game= {  
+    'Titulo' : 'CS-GO',
+    'Ano' : 2012,
+    'Categoria' :'FPS Online'
+    }
+    
     jogadores=['Midna','Vt','Leaf','Quemario','Trop','Aspax','maxxdiego']
     jogos=['GTA V','Valorant','Elden Ring','Sekiro','Free Fire','Mad Max','Dying Light']
-    return render_template("games.html",titulo= titulo,ano=ano,categoria=categoria,jogadores=jogadores,jogos=jogos)
+    return render_template("games.html",game=game,jogadores=jogadores,jogos=jogos)
 
 #Iniciando o servidor no localhost, porta 500, modo de depuração ativado
 if __name__ == '__main__':
