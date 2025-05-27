@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+<details>
+    <summary class="m-2">Cadastro de Console</summary>
+    <div class="col-md-4 m-2">
+        <form action="{{url_for('Consoles')}}" method="post">
+            <input type="hidden" name="CadastrarConsole" value="true">
+            <input type="text" name="nome" placeholder="Nome" class="form-control" required>
+            <input type="text" name="fabricante" placeholder="Fabricante" class="form-control" required>
+            <input type="number" name="preco" placeholder="Preço" class="form-control" required>
+            <input type="number" name="quantidade" placeholder="Quantidade" class="form-control" required>
+
+            <input type="submit" value="Cadastrar" class="btn btn-success">
+            <input type="reset" value="Limpar" class="btn btn-danger">
+        </form>
+    </div>
+</details>
+<hr>
+<h2>Nosso estoque</h2>
+<table class="table table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Nome:</th>
+            <th>Fabricante:</th>
+            <th>Preço:</th>
+            <th>Quantidade:</th>
+            <th>Ações:</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for console in consolesestoque %}
+        <tr>
+            <td style="color: rgb(255, 0, 234);">{{console.nome}}</td>
+            <td>{{console.fabricante}}</td>
+            <td>R${{console.preco}}</td>
+            <td>{{console.quantidade}}</td>
+            <td>
+
+                <a href="{{url_for('Consoles', id=console.id)}}"
+                    onclick="return confirm('Tem certeza que deseja excluir este console?')">
+                    <button type="button" class="btn btn-danger">Excluir</button>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

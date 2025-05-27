@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Controle de estoque - Jogos</h2>
+<details>
+    <summary>Cadastrar Game </summary>
+    <div class="col-md-4">
+        <form action="{{url_for('estoqueGames')}}" method="POST">
+            <input type="hidden" name="CadastrarJogo" value="true">
+            <input type="text" name="titulo" placeholder="Título" class="form-control" required>
+            <input type="text" name="ano" placeholder="Ano" class="form-control" required>
+            <input type="text" name="categoria" placeholder="Categoria" class="form-control" required>
+            <input type="text" name="plataforma" placeholder="Plataforma" class="form-control" required>
+            <input type="text" name="preco" placeholder="Preço" class="form-control" required>
+            <input type="text" name="quantidade" placeholder="Quantidade" class="form-control" required>
+            <input type="submit" value="Cadastrar" class="btn btn-success">
+            <input type="reset" value="Limpar" class="btn btn-danger">
+        </form>
+    </div>
+</details>
+<h2>Nosso estoque</h2>
+<table class="table tablebordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Título</th>
+            <th>Ano</th>
+            <th>Categoria</th>
+            <th>Plataforma</th>
+            <th>Preço</th>
+            <th>Quantidade</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for game in gamesestoque %}
+        <tr>
+            <td>{{game.titulo}}</td>
+            <td>{{game.ano}}</td>
+            <td>{{game.categoria}}</td>
+            <td>{{game.plataforma}}</td>
+            <td>R${{game.preco}}</td>
+            <td>{{game.quantidade}}</td>
+            <td>
+
+                <a href="{{url_for('estoqueGames', id=game.id)}}" onclick="return confirm('Deseja excluir???')">
+                    <button type="button" class="btn btn-danger">Excluir</button>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}
