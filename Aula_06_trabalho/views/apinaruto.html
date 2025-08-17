@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <!-- Header Section -->
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold text-warning mb-3">🌐 API NARUTO OFICIAL</h1>
+        <p class="lead text-light">Dados oficiais dos personagens via MyAnimeList</p>
+        <div class="api-divider"></div>
+    </div>
+
+    <!-- Search Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="search-container">
+                <div class="search-box">
+                    <div class="search-icon">🔍</div>
+                    <input type="text" id="searchInput" class="search-input" placeholder="Buscar personagem por nome...">
+                    <div class="search-clear" id="clearSearch">✕</div>
+                </div>
+                <div class="search-stats">
+                    <span id="searchResults">Mostrando <span id="visibleCount">{{listaPersonagens|length}}</span> de <span id="totalCount">{{listaPersonagens|length}}</span> personagens</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Banner -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="api-stats-banner">
+                <div class="row text-center">
+                    <div class="col-md-3">
+                        <div class="stat-bubble">
+                            <span class="stat-number">{{listaPersonagens|length}}</span>
+                            <span class="stat-label">Personagens</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-bubble">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">Oficial</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-bubble">
+                            <span class="stat-number">24/7</span>
+                            <span class="stat-label">Disponível</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-bubble">
+                            <span class="stat-number">🌐</span>
+                            <span class="stat-label">MyAnimeList</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Personagens Grid -->
+    <div class="characters-grid" id="charactersGrid">
+        {% for personagem in listaPersonagens %}
+        <div class="character-item" data-name="{{personagem.character.name|lower}}" data-original-index="{{loop.index0}}">
+            <div class="character-card">
+                <div class="character-image">
+                    {% if personagem.character.images.jpg.image_url %}
+                    <img src="{{personagem.character.images.jpg.image_url}}" 
+                         alt="{{personagem.character.name}}" 
+                         class="img-fluid">
+                    {% else %}
+                    <div class="no-image">
+                        <span class="no-image-icon">👤</span>
+                        <span class="no-image-text">Sem Imagem</span>
+                    </div>
+                    {% endif %}
+                    <div class="character-overlay">
+                        <a href="{{url_for('apinaruto', id=personagem.character.mal_id)}}" 
+                           class="btn btn-warning btn-sm overlay-btn">
+                            <span class="btn-icon">🔍</span> Ver Detalhes
+                        </a>
+                    </div>
+                    <!-- Ranking Badge -->
+                    <div class="ranking-badge">
+                        <span class="rank-text">S</span>
+                    </div>
+                </div>
+                <div class="character-info">
+                    <h5 class="character-name">{{personagem.character.name}}</h5>
+                    <div class="character-details">
+                        {% if personagem.character.name_kanji %}
+                        <div class="detail-item">
+                            <span class="detail-icon">🇯🇵</span>
+                            <span class="detail-text">{{personagem.character.name_kanji}}</span>
+                        </div>
+                        {% endif %}
+                        <div class="detail-item">
+                            <span class="detail-icon">🎭</span>
+                            <span class="detail-text">{{personagem.role}}</span>
+                        </div>
+                        <!-- Vila -->
+                        <div class="detail-item">
+                            <span class="detail-icon">🏘️</span>
+                            <span class="detail-text">Konoha</span>
+                        </div>
+                        <!-- Clã -->
+                        <div class="detail-item">
+                            <span class="detail-icon">👨‍👩‍👧‍👦</span>
+                            <span class="detail-text">Uzumaki</span>
+                        </div>
+                        <!-- Rank Ninja -->
+                        <div class="detail-item">
+                            <span class="detail-icon">🏆</span>
+                            <span class="detail-text">Hokage</span>
+                        </div>
+                        {% if personagem.voice_actors %}
+                        <div class="detail-item">
+                            <span class="detail-icon">🎤</span>
+                            <span class="detail-text">
+                                {% for va in personagem.voice_actors[:1] %}
+                                    {{va.person.name}}
+                                {% endfor %}
+                            </span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- No Results Message -->
+    <div id="noResults" class="text-center py-5" style="display: none;">
+        <div class="no-results-container">
+            <div class="no-results-icon">🔍</div>
+            <h3 class="no-results-title">Nenhum personagem encontrado</h3>
+            <p class="no-results-text">Tente buscar com outros termos ou verifique a ortografia</p>
+            <button class="btn btn-warning" onclick="clearSearch()">Limpar Busca</button>
+        </div>
+    </div>
+
+    <!-- Loading State (se necessário) -->
+    {% if not listaPersonagens %}
+    <div class="text-center py-5">
+        <div class="loading-spinner">
+            <div class="spinner-border text-warning" role="status">
+                <span class="visually-hidden">Carregando...</span>
+            </div>
+        </div>
+        <p class="text-light mt-3">Carregando personagens da API...</p>
+    </div>
+    {% endif %}
+</div>
+
+<script src="{{ url_for('static', filename='js/apinaruto.js') }}"></script>
+
+{% endblock content %}

@@ -1,0 +1,245 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <!-- Header Section -->
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold text-warning mb-3">👥 NINJAS DE NARUTO</h1>
+        <p class="lead text-light">Descubra os guerreiros mais poderosos do mundo shinobi</p>
+        <div class="ninja-divider"></div>
+    </div>
+    
+    <div class="row">
+        <!-- Personagem em Destaque -->
+        <div class="col-md-6 mb-4">
+            <div class="card ninja-spotlight">
+                <div class="card-header text-center">
+                    <h5 class="mb-0">⭐ PERSONAGEM EM DESTAQUE ⭐</h5>
+                </div>
+                <div class="card-body text-center">
+                    <div class="ninja-avatar mb-3">
+                        <span class="avatar-icon">🍃</span>
+                    </div>
+                    <h4 class="text-warning mb-3">{{personagem.nome}}</h4>
+                    <div class="ninja-stats">
+                        <div class="stat-item">
+                            <span class="stat-icon">🏘️</span>
+                            <span class="stat-text">{{personagem.vila}}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">⚡</span>
+                            <span class="stat-text">{{personagem.jutsu}}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">🏆</span>
+                            <span class="stat-text">{{personagem.rank}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Adicionar Ninja -->
+        <div class="col-md-6 mb-4">
+            <div class="card ninja-form">
+                <div class="card-header text-center">
+                    <h5 class="mb-0">➕ ADICIONAR NINJA</h5>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        <div class="mb-3">
+                            <label for="ninja" class="form-label">
+                                <span class="form-icon">👤</span> Nome do Ninja:
+                            </label>
+                            <input type="text" class="form-control ninja-input" id="ninja" name="ninja" 
+                                   placeholder="Ex: Kakashi Hatake" required>
+                        </div>
+                        <button type="submit" class="btn btn-warning w-100 ninja-btn">
+                            <span class="btn-icon">🍃</span> Adicionar Ninja
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Lista de Ninjas -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card ninja-list">
+                <div class="card-header text-center">
+                    <h5 class="mb-0">🗡️ NINJAS FAMOSOS 🗡️</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {% for ninja in ninjas %}
+                        <div class="col-md-6 col-lg-4 mb-3">
+                            <div class="ninja-item">
+                                <div class="ninja-item-content">
+                                    <span class="ninja-symbol">🍃</span>
+                                    <span class="ninja-name">{{ninja}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.ninja-divider {
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #ff6b35, #f7931e, #ffc107, transparent);
+    margin: 20px auto;
+    width: 200px;
+    border-radius: 2px;
+}
+
+.ninja-spotlight {
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.1) 0%, rgba(255, 107, 53, 0.1) 100%);
+    border: 2px solid rgba(255, 193, 7, 0.3);
+}
+
+.ninja-form {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    border: 2px solid rgba(102, 126, 234, 0.3);
+}
+
+.ninja-list {
+    background: linear-gradient(135deg, rgba(240, 147, 251, 0.1) 0%, rgba(245, 87, 108, 0.1) 100%);
+    border: 2px solid rgba(240, 147, 251, 0.3);
+}
+
+.ninja-avatar {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(45deg, #ff6b35, #f7931e);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+}
+
+.avatar-icon {
+    font-size: 2.5rem;
+}
+
+.ninja-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.stat-icon {
+    font-size: 1.2rem;
+}
+
+.stat-text {
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.form-icon {
+    margin-right: 8px;
+    color: #ff6b35;
+}
+
+.ninja-input {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 2px solid rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
+    border-radius: 15px !important;
+    padding: 12px 15px !important;
+}
+
+.ninja-input:focus {
+    border-color: #ff6b35 !important;
+    box-shadow: 0 0 0 0.2rem rgba(255, 107, 53, 0.25) !important;
+}
+
+.ninja-input::placeholder {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.ninja-btn {
+    background: linear-gradient(45deg, #ff6b35, #f7931e) !important;
+    border: none !important;
+    border-radius: 15px !important;
+    padding: 12px !important;
+    font-weight: bold !important;
+    transition: all 0.3s ease !important;
+}
+
+.ninja-btn:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 10px 20px rgba(255, 107, 53, 0.3) !important;
+}
+
+.btn-icon {
+    margin-right: 8px;
+}
+
+.ninja-item {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 15px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.ninja-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(255, 107, 53, 0.2);
+    border-color: #ff6b35;
+}
+
+.ninja-item-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.ninja-symbol {
+    font-size: 1.5rem;
+    color: #ff6b35;
+}
+
+.ninja-name {
+    color: white;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+    .ninja-stats {
+        gap: 8px;
+    }
+    
+    .stat-item {
+        padding: 6px;
+    }
+    
+    .ninja-item-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+    }
+}
+</style>
+{% endblock content %}

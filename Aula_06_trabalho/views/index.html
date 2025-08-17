@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Hero Section -->
+    <div class="hero-section text-center py-5 mb-5">
+        <div class="hero-content">
+            <h1 class="display-3 fw-bold text-white mb-4">
+                <span class="hero-text">🍃 NARUTO WORLD 🍃</span>
+            </h1>
+            <p class="lead text-white mb-4">Explore o universo dos ninjas e descubra o poder dos jutsu!</p>
+            <div class="hero-buttons">
+                <a href="{{url_for('personagens')}}" class="btn btn-warning btn-lg me-3">👥 Personagens</a>
+                <a href="{{url_for('apinaruto')}}" class="btn btn-danger btn-lg">🌐 API Naruto</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="feature-card ninja-card">
+                <div class="card-icon">👥</div>
+                <h3>Personagens</h3>
+                <p>Conheça os ninjas mais poderosos do mundo shinobi. Cadastre, edite e gerencie personagens com seus jutsu únicos.</p>
+                <a href="{{url_for('personagens')}}" class="btn btn-outline-light">Explorar</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card vila-card">
+                <div class="card-icon">🏘️</div>
+                <h3>Vilas Ocultas</h3>
+                <p>Descubra as vilas ocultas e seus líderes. Gerencie informações sobre países e Kages de cada vila.</p>
+                <a href="{{url_for('vilasEstoque')}}" class="btn btn-outline-light">Explorar</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card api-card">
+                <div class="card-icon">🌐</div>
+                <h3>API Oficial</h3>
+                <p>Acesse dados oficiais dos personagens via MyAnimeList. Imagens, informações e dubladores reais.</p>
+                <a href="{{url_for('apinaruto')}}" class="btn btn-outline-light">Explorar</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="row text-center mb-5">
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-number">100+</div>
+                <div class="stat-label">Personagens</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Vilas Principais</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-number">1000+</div>
+                <div class="stat-label">Jutsu</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-number">∞</div>
+                <div class="stat-label">Possibilidades</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="cta-section text-center py-5">
+        <h2 class="text-white mb-4">🍃 Dattebayo! 🍃</h2>
+        <p class="text-white mb-4">Entre no mundo dos ninjas e descubra seu verdadeiro poder!</p>
+        <a href="{{url_for('personagens')}}" class="btn btn-warning btn-lg">Começar Jornada</a>
+    </div>
+</div>
+{% endblock content %}

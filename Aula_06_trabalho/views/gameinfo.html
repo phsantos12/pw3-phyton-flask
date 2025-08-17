@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <a href="{{url_for('apigames')}}" class="btn btn-dark"><< Voltar para todos os jogos</a>
+    <img src="{{gameInfo.thumbnail}}">
+    <h1>{{gameInfo.title}}</h1>
+    <p>{{gameInfo.genre}}</p>
+    <p>{{gameInfo.short_description}}</p>
+    <p>{{gameInfo.platform}}</p>
+    <p>{{gameInfo.publisher}}</p>
+    <p>{{gameInfo.release_date}}</p>
+    <a href="{{gameInfo.freetogame_profile_url}}" class="btn btn-danger">Jogar agora</a>
+
+{% endblock content %}

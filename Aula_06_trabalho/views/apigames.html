@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container" style="border: 1px #000;">
+    <div class="row">
+            {% for jogos in listaJogos %}
+            <div class="col-md-3 m-auto">
+                <div class="card" style="width: 16 rem;">
+                    <img src="{{jogos.thumbnail}}">
+                    <div class="card-body">
+                        <h5>Título: {{jogos.title}}</h5>
+                        <p>Gênero: {{jogos.genre}}</p>
+                        <p>Plataforma: {{jogos.platform}}</p>
+                        <a href="{{url_for('apigames', id=jogos.id)}}" class="btn btn-dark">+Info</a>
+                        <div class="p-1" style="background-color: #ababab;border-radius: 8px;border: 1px #000;">
+                            <strong>Jogar agora: </strong>
+                            <a href="{{jogos.game_url}}">Jogar agora</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock content %}
