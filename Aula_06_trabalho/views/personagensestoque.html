@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>🗂️ Gerenciar Personagens</h2>
+    <hr>
+    
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Cadastrar Novo Personagem</h5>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        <div class="mb-3">
+                            <label for="nome" class="form-label">Nome:</label>
+                            <input type="text" class="form-control" id="nome" name="nome" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="vila" class="form-label">Vila:</label>
+                            <input type="text" class="form-control" id="vila" name="vila" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="jutsu_principal" class="form-label">Jutsu Principal:</label>
+                            <input type="text" class="form-control" id="jutsu_principal" name="jutsu_principal" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="rank" class="form-label">Rank:</label>
+                            <select class="form-control" id="rank" name="rank" required>
+                                <option value="">Selecione...</option>
+                                <option value="Genin">Genin</option>
+                                <option value="Chunin">Chunin</option>
+                                <option value="Jonin">Jonin</option>
+                                <option value="ANBU">ANBU</option>
+                                <option value="Kage">Kage</option>
+                                <option value="Sannin">Sannin</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="elemento" class="form-label">Elemento:</label>
+                            <select class="form-control" id="elemento" name="elemento" required>
+                                <option value="">Selecione...</option>
+                                <option value="Fogo">Fogo (Katon)</option>
+                                <option value="Água">Água (Suiton)</option>
+                                <option value="Terra">Terra (Doton)</option>
+                                <option value="Vento">Vento (Futon)</option>
+                                <option value="Raio">Raio (Raiton)</option>
+                                <option value="Yin-Yang">Yin-Yang</option>
+                                <option value="Múltiplos">Múltiplos</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success">Cadastrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Personagens Cadastrados</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nome</th>
+                                    <th>Vila</th>
+                                    <th>Jutsu</th>
+                                    <th>Rank</th>
+                                    <th>Elemento</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for personagem in personagensestoque.items %}
+                                <tr>
+                                    <td>{{personagem.id}}</td>
+                                    <td>{{personagem.nome}}</td>
+                                    <td>{{personagem.vila}}</td>
+                                    <td>{{personagem.jutsu_principal}}</td>
+                                    <td><span class="badge bg-primary">{{personagem.rank}}</span></td>
+                                    <td>{{personagem.elemento}}</td>
+                                    <td>
+                                        <a href="{{url_for('personagemEdit', id=personagem.id)}}" class="btn btn-warning btn-sm">✏️</a>
+                                        <a href="{{url_for('personagensEstoque', id=personagem.id)}}" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza?')">🗑️</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Paginação -->
+                    <nav>
+                        <ul class="pagination justify-content-center">
+                            {% if personagensestoque.has_prev %}
+                            <li class="page-item">
+                                <a class="page-link" href="{{url_for('personagensEstoque', page=personagensestoque.prev_num)}}">Anterior</a>
+                            </li>
+                            {% endif %}
+                            
+                            {% for page_num in personagensestoque.iter_pages() %}
+                                {% if page_num %}
+                                    {% if page_num != personagensestoque.page %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="{{url_for('personagensEstoque', page=page_num)}}">{{page_num}}</a>
+                                    </li>
+                                    {% else %}
+                                    <li class="page-item active">
+                                        <span class="page-link">{{page_num}}</span>
+                                    </li>
+                                    {% endif %}
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <span class="page-link">...</span>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                            
+                            {% if personagensestoque.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="{{url_for('personagensEstoque', page=personagensestoque.next_num)}}">Próximo</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

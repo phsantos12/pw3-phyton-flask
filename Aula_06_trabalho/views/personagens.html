@@ -1,0 +1,231 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold text-warning mb-3">👥 NINJAS DE NARUTO</h1>
+        <p class="lead text-light">Descubra os guerreiros mais poderosos do mundo shinobi</p>
+        <div class="ninja-divider"></div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card ninja-spotlight">
+                <div class="card-header text-center">
+                    <h5 class="mb-0">⭐ PERSONAGEM EM DESTAQUE ⭐</h5>
+                </div>
+                <div class="card-body text-center">
+                    <div class="ninja-avatar mb-3">
+                        <span class="avatar-icon">🍃</span>
+                    </div>
+                    <h4 class="text-warning mb-3">{{personagem.nome}}</h4>
+                    <div class="ninja-stats">
+                        <div class="stat-item">
+                            <span class="stat-icon">🏘️</span>
+                            <span class="stat-text">{{personagem.vila}}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">⚡</span>
+                            <span class="stat-text">{{personagem.jutsu}}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">🏆</span>
+                            <span class="stat-text">{{personagem.rank}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6 mb-4">
+            <div class="card ninja-form">
+                <div class="card-header text-center">
+                    <h5 class="mb-0">➕ ADICIONAR NINJA</h5>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        <div class="mb-3">
+                            <label for="ninja" class="form-label">
+                                <span class="form-icon">👤</span> Nome do Ninja:
+                            </label>
+                            <input type="text" class="form-control ninja-input" id="ninja" name="ninja" 
+                                   placeholder="Ex: Kakashi Hatake" required>
+                        </div>
+                        <button type="submit" class="btn btn-warning w-100 ninja-btn">
+                            <span class="btn-icon">🍃</span> Adicionar Ninja
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-12">
+            <div class="card ninja-list">
+                <div class="card-header text-center">
+                    <h5 class="mb-0">🗡️ NINJAS FAMOSOS 🗡️</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {% for ninja in ninjas %}
+                        <div class="col-md-6 col-lg-4 mb-3">
+                            <div class="ninja-item">
+                                <div class="ninja-item-content">
+                                    <span class="ninja-symbol">🍃</span>
+                                    <span class="ninja-name">{{ninja}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.ninja-divider {
+    height: 3px;
+    background: #444;
+    margin: 20px auto;
+    width: 200px;
+    border-radius: 2px;
+}
+
+.ninja-spotlight {
+    background: #333;
+    border: 1px solid #444;
+}
+
+.ninja-form {
+    background: #333;
+    border: 1px solid #444;
+}
+
+.ninja-list {
+    background: #333;
+    border: 1px solid #444;
+}
+
+.ninja-avatar {
+    width: 80px;
+    height: 80px;
+    background: #3a3a3a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    box-shadow: none;
+}
+
+.avatar-icon {
+    font-size: 2.5rem;
+}
+
+.ninja-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    background: #3a3a3a;
+    border-radius: 10px;
+    border: 1px solid #444;
+}
+
+.stat-icon {
+    font-size: 1.2rem;
+}
+
+.stat-text {
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.form-icon {
+    margin-right: 8px;
+    color: #ff6b35;
+}
+
+.ninja-input {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
+    border-radius: 15px !important;
+    padding: 12px 15px !important;
+}
+
+.ninja-input:focus {
+    border-color: #666 !important;
+    box-shadow: none !important;
+}
+
+.ninja-input::placeholder {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.ninja-btn {
+    background: #ff6b35 !important;
+    border: 1px solid #ff6b35 !important;
+    border-radius: 15px !important;
+    padding: 12px !important;
+    font-weight: bold !important;
+}
+
+.ninja-btn:hover { background: #ff6b35 !important; }
+
+.btn-icon {
+    margin-right: 8px;
+}
+
+.ninja-item {
+    background: #3a3a3a;
+    border: 1px solid #444;
+    border-radius: 15px;
+    padding: 15px;
+}
+
+.ninja-item:hover { background: #3a3a3a; border-color: #444; }
+
+.ninja-item-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.ninja-symbol {
+    font-size: 1.5rem;
+    color: #ff6b35;
+}
+
+.ninja-name {
+    color: white;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+    .ninja-stats {
+        gap: 8px;
+    }
+    
+    .stat-item {
+        padding: 6px;
+    }
+    
+    .ninja-item-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+    }
+}
+</style>
+{% endblock content %}
